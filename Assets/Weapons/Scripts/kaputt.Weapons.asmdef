@@ -1,0 +1,19 @@
+{
+    "name": "kaputt.Weapons",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b2377f52d63caf8a0b5de63d1cbc86d2",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:2999b8ab11f8c2accab19eebfea407b2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
