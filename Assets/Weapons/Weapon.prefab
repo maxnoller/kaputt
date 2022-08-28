@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8803055936015827720
+--- !u!1 &6196826449269184092
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5938440545540368983}
-  - component: {fileID: -3549133092806233647}
-  - component: {fileID: 6272579160939492431}
+  - component: {fileID: 3536007260450533201}
+  - component: {fileID: 1332260832181647666}
+  - component: {fileID: 4804803442469784583}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -18,44 +18,45 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5938440545540368983
+--- !u!4 &3536007260450533201
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803055936015827720}
+  m_GameObject: {fileID: 6196826449269184092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.5088825, y: 0.46496713, z: -2.213983}
+  m_LocalPosition: {x: 9.359078, y: 4.7101994, z: 1.9546554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-3549133092806233647
+--- !u!114 &1332260832181647666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803055936015827720}
+  m_GameObject: {fileID: 6196826449269184092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a3c65425177a794d9e9cf0bfac77107, type: 3}
+  m_Script: {fileID: 11500000, guid: f508534540eacccfbbd19b9149ba59c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  hitForce: 0
-  fireRate: 0
+  damage: 10
+  hitForce: 100
+  fireRate: 4
   fireMode: 0
---- !u!114 &6272579160939492431
+  mainCamera: {fileID: 0}
+--- !u!114 &4804803442469784583
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803055936015827720}
+  m_GameObject: {fileID: 6196826449269184092}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
