@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using Unity.Netcode;
 using kaputt.Character.Input;
 using kaputt.core;
@@ -7,7 +8,7 @@ namespace kaputt.Weapons {
 public class HitscanShootBehaviour : NetworkBehaviour, IShootBehaviour {
 	[SerializeField]int damage;
 	[SerializeField]float hitForce;
-	[SerializeField][Tooltip("Specifies the shots per second that can be fired")]int fireRate;
+	[SerializeField][Tooltip("Specifies the shots per second that can be fired")]float fireRate;
 	[SerializeField]FireMode fireMode;
 
 	[SerializeField]Camera mainCamera;
@@ -17,7 +18,9 @@ public class HitscanShootBehaviour : NetworkBehaviour, IShootBehaviour {
 	bool shotPressed = false;
 	float nextShotTime;
 
-	public bool canShoot{get;set;} = true;
+	public NetworkVariable<bool> canShoot{get;set;} = new NetworkVariable<bool>(true);
+
+	public event Action OnShotFired = delegate {};
 
 	void Awake(){
 		input = new MainInput();
@@ -53,9 +56,10 @@ public class HitscanShootBehaviour : NetworkBehaviour, IShootBehaviour {
 	}
 
 	private void handleShot(){
-		if(canShoot && nextShotTime <= Time.time){
+		if(canShoot.Value && nextShotTime <= Time.time){
 			performRaycast();
 			calculateNextShotTime();
+			OnShotFired.Invoke();
 		}
 	}
 

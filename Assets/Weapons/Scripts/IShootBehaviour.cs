@@ -1,5 +1,9 @@
+using System;
+using Unity.Netcode;
+
 namespace kaputt.Weapons{
 public interface IShootBehaviour {
-    bool canShoot{get;set;}
+    NetworkVariable<bool> canShoot{get;set;}
+    public event Action OnShotFired;
 }
 }

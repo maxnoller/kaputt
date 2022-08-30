@@ -9,6 +9,7 @@ public class DummyHealthBar : MonoBehaviour
 {
     [SerializeField]Slider slider;
     [SerializeField]DummyHealth dummyHealth;
+    [SerializeField]Transform player;
 
     void Awake(){
         slider.maxValue = DummyHealth.maxHealth;
@@ -18,6 +19,14 @@ public class DummyHealthBar : MonoBehaviour
     void updateHealthBar(int previousValue, int newValue){
         slider.value = newValue;
 
+    }
+
+    void Update(){
+        if(player != null){
+            slider.transform.parent.LookAt(player);
+        } else {
+            player = Camera.main.transform.parent;
+        }
     }
 }
 }

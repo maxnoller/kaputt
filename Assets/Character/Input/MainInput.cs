@@ -100,6 +100,15 @@ namespace kaputt.Character.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""32a2cafa-bfb4-427c-b873-8d82a126deac"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -234,6 +243,17 @@ namespace kaputt.Character.Input
                     ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7412ee22-927d-4dcc-ad3d-866a7c3e69da"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -250,6 +270,7 @@ namespace kaputt.Character.Input
             m_Foot_PrimaryMouse = m_Foot.FindAction("PrimaryMouse", throwIfNotFound: true);
             m_Foot_SecondaryMouse = m_Foot.FindAction("SecondaryMouse", throwIfNotFound: true);
             m_Foot_Escape = m_Foot.FindAction("Escape", throwIfNotFound: true);
+            m_Foot_Reload = m_Foot.FindAction("Reload", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -317,6 +338,7 @@ namespace kaputt.Character.Input
         private readonly InputAction m_Foot_PrimaryMouse;
         private readonly InputAction m_Foot_SecondaryMouse;
         private readonly InputAction m_Foot_Escape;
+        private readonly InputAction m_Foot_Reload;
         public struct FootActions
         {
             private @MainInput m_Wrapper;
@@ -329,6 +351,7 @@ namespace kaputt.Character.Input
             public InputAction @PrimaryMouse => m_Wrapper.m_Foot_PrimaryMouse;
             public InputAction @SecondaryMouse => m_Wrapper.m_Foot_SecondaryMouse;
             public InputAction @Escape => m_Wrapper.m_Foot_Escape;
+            public InputAction @Reload => m_Wrapper.m_Foot_Reload;
             public InputActionMap Get() { return m_Wrapper.m_Foot; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ namespace kaputt.Character.Input
                     @Escape.started -= m_Wrapper.m_FootActionsCallbackInterface.OnEscape;
                     @Escape.performed -= m_Wrapper.m_FootActionsCallbackInterface.OnEscape;
                     @Escape.canceled -= m_Wrapper.m_FootActionsCallbackInterface.OnEscape;
+                    @Reload.started -= m_Wrapper.m_FootActionsCallbackInterface.OnReload;
+                    @Reload.performed -= m_Wrapper.m_FootActionsCallbackInterface.OnReload;
+                    @Reload.canceled -= m_Wrapper.m_FootActionsCallbackInterface.OnReload;
                 }
                 m_Wrapper.m_FootActionsCallbackInterface = instance;
                 if (instance != null)
@@ -390,6 +416,9 @@ namespace kaputt.Character.Input
                     @Escape.started += instance.OnEscape;
                     @Escape.performed += instance.OnEscape;
                     @Escape.canceled += instance.OnEscape;
+                    @Reload.started += instance.OnReload;
+                    @Reload.performed += instance.OnReload;
+                    @Reload.canceled += instance.OnReload;
                 }
             }
         }
@@ -404,6 +433,7 @@ namespace kaputt.Character.Input
             void OnPrimaryMouse(InputAction.CallbackContext context);
             void OnSecondaryMouse(InputAction.CallbackContext context);
             void OnEscape(InputAction.CallbackContext context);
+            void OnReload(InputAction.CallbackContext context);
         }
     }
 }
