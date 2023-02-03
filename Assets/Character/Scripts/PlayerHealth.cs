@@ -9,7 +9,7 @@ namespace kaputt.Character{
 public class PlayerHealth : NetworkBehaviour, IDamageable
 {
     private const int maxHealth = 100;
-    NetworkVariable<int> health = new NetworkVariable<int>();
+    public NetworkVariable<int> health = new NetworkVariable<int>();
 
     public delegate void OnPlayerDiedEventHandler();
     public event OnPlayerDiedEventHandler OnPlayerDied = delegate {};

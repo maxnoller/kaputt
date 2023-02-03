@@ -3,6 +3,7 @@ using System;
 using Unity.Netcode;
 using kaputt.Character.Input;
 using kaputt.core;
+using kaputt.core.objectPooling;
 
 namespace kaputt.Weapons {
 public class HitscanShootBehaviour : NetworkBehaviour, IShootBehaviour {
@@ -74,6 +75,8 @@ public class HitscanShootBehaviour : NetworkBehaviour, IShootBehaviour {
 			if (hit.rigidbody != null){
 				hit.rigidbody.AddForce(-hit.normal * hitForce);
 			}
+			NetworkPoolController.Instance.OrderObjectClientRpc("bullethole", hit.point-hit.normal*0.5f, Quaternion.LookRotation(hit.normal));
+
 		}
 	}
 

@@ -1,0 +1,21 @@
+{
+    "name": "NOBRAIN.KAPUTT.ConnectionManagement",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:892e77350b0ba4548a88453e288e56d0",
+        "GUID:7a2070b558ad0544cb9be64bb0b05b86",
+        "GUID:f2d49d9fa7e7eb3418e39723a7d3b92f",
+        "GUID:b3e517d033404ae4595a2c4c9160dede"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Lobby/main-menu-style.uss?fileID=7433441132597879392&amp;guid=cd00bebaaa8f5124191c58e1ff92a760&amp;type=3#main-menu-style" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(32, 39, 72); align-items: center;">
+        <ui:Label tabindex="-1" text="kaputt" display-tooltip-when-elided="true" style="font-size: 36px; margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 40px;" />
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+            <ui:Button tabindex="-1" text="Host" display-tooltip-when-elided="true" name="HostButton" class="ownButton" />
+            <ui:Button tabindex="-1" text="Join" display-tooltip-when-elided="true" name="JoinButton" class="ownButton" />
+            <ui:Button tabindex="-1" text="Sandbox" display-tooltip-when-elided="true" name="SandboxButton" class="ownButton" />
+            <ui:Button tabindex="-1" text="Quit" display-tooltip-when-elided="true" name="QuitButton" class="ownButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

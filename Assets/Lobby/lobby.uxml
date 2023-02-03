@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(53, 53, 53); align-items: center; visibility: visible; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;">
+        <ui:Label tabindex="-1" text="lobby" display-tooltip-when-elided="true" name="Lobby" style="margin-top: 40px; -unity-font: none; font-size: 30px;" />
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 400px; height: auto;">
+            <ui:ListView focusable="true" style="height: 100%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Buttons" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: flex-start; align-self: auto; flex-direction: row;">
+            <ui:Button tabindex="-1" text="Leave" display-tooltip-when-elided="true" name="LeaveButton" />
+            <ui:Button tabindex="-1" text="Kick" display-tooltip-when-elided="true" name="KickButton" />
+            <ui:Button tabindex="-1" text="Start" display-tooltip-when-elided="true" name="StartButton" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

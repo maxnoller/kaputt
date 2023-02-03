@@ -12,7 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: bdfe7e89d686b739bbb9117cc1e1c84f
   - enabled: 1
-    path: Assets/Scenes/Plane.unity
+    path: Assets/Scenes/Sandbox.unity
     guid: 16ea2b35a7c92cb1ab21740505a9fa4c
+  - enabled: 1
+    path: Assets/Scenes/battlefield.unity
+    guid: d1737a23bea79754cb512052fe5f74bf
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2196df78e78061c9899cb26969fc06a9, type: 2}
