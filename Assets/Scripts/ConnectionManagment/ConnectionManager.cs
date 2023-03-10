@@ -11,22 +11,23 @@ public enum ConnectStatus{
     Undefined,
     Success,
     ServerFull,
-    LggedInAgain,
-    UserRequestedDisconnect,
+    LoggedInAgain,
     GenericDisconnect,
-    Reconnecting,
     IncompatibleBuildType,
     HostEndedSession,
-    StartServerFailed,
+    StartHostFailed,
     StartClientFailed
 }
 
-public struct ReconnectMessage{
+public struct ReconnectMessage
+{
     public int CurrentAttempt;
-    public int MaxAttempts;
-    public ReconnectMessage(int currentAttempt, int maxAttempts){
+    public int MaxAttempt;
+
+    public ReconnectMessage(int currentAttempt, int maxAttempt)
+    {
         CurrentAttempt = currentAttempt;
-        MaxAttempts = maxAttempts;
+        MaxAttempt = maxAttempt;
     }
 }
 
@@ -64,7 +65,6 @@ public class ConnectionManager : MonoBehaviour
         internal readonly OfflineState m_Offline = new OfflineState();
         internal readonly ClientConnectingState m_ClientConnecting = new ClientConnectingState();
         internal readonly ClientConnectedState m_ClientConnected = new ClientConnectedState();
-        internal readonly ClientReconnectingState m_ClientReconnecting = new ClientReconnectingState();
         internal readonly StartingHostState m_StartingHost = new StartingHostState();
         internal readonly HostingState m_Hosting = new HostingState();
 
@@ -75,7 +75,7 @@ public class ConnectionManager : MonoBehaviour
 
         void Start()
         {
-            List<ConnectionState> states = new() { m_Offline, m_ClientConnecting, m_ClientConnected, m_ClientReconnecting, m_StartingHost, m_Hosting };
+            List<ConnectionState> states = new() { m_Offline, m_ClientConnecting, m_ClientConnected, m_StartingHost, m_Hosting };
             foreach (var connectionState in states)
             {
                 m_Resolver.Inject(connectionState);

@@ -25,7 +25,6 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
         public override void StartClient(string playerName, string ipaddress, int port)
         {
             var connectionMethod = new ConnectionMethodIP(ipaddress, (ushort)port, m_ConnectionManager, playerName);
-            m_ConnectionManager.m_ClientReconnecting.Configure(connectionMethod);
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_ClientConnecting.Configure(connectionMethod));
         }
 

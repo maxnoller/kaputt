@@ -36,7 +36,8 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
 
         protected string GetPlayerId()
         {
-           return Authentication.Authentication.Instance.PlayerId();
+           //return Authentication.Authentication.Instance.PlayerId();
+           return "123";
         }
     }
 

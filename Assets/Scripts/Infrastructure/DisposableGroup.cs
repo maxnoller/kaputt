@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AOTU.Infrastructure
+namespace NOBRAIN.KAPUTT.Infrastructure
 {
     public class DisposableGroup : IDisposable
     {

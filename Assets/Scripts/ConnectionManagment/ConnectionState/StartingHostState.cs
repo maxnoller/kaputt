@@ -1,5 +1,5 @@
 using System;
-using AOTU.Infrastructure;
+using NOBRAIN.KAPUTT.Infrastructure;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
@@ -19,7 +19,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
 
         public override void Enter()
         {
-            StartServer();
+            StartHost();
         }
 
         public override void Exit() { }
@@ -28,13 +28,13 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
         {
             if (clientId == m_ConnectionManager.NetworkManager.LocalClientId)
             {
-                StartServerFailed();
+                StartHostFailed();
             }
         }
 
-        void StartServerFailed()
+        void StartHostFailed()
         {
-            m_ConnectStatusPublisher.Publish(ConnectStatus.StartServerFailed);
+            m_ConnectStatusPublisher.Publish(ConnectStatus.StartHostFailed);
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_Offline);
         }
 
@@ -63,7 +63,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
             }
         }
 
-        async void StartServer()
+        async void StartHost()
         {
             try
             {
@@ -77,7 +77,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
             }
             catch (Exception)
             {
-                StartServerFailed();
+                StartHostFailed();
                 throw;
             }
         }

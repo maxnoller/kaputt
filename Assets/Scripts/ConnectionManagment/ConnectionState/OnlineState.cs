@@ -8,7 +8,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
         public override void OnUserRequestedShutdown()
         {
             // This behaviour will be the same for every online state
-            m_ConnectStatusPublisher.Publish(ConnectStatus.UserRequestedDisconnect);
+            m_ConnectStatusPublisher.Publish(ConnectStatus.GenericDisconnect);
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_Offline);
         }
 

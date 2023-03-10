@@ -1,0 +1,22 @@
+{
+    "name": "NOBRAIN.KAPUTT.ApplicationLifecycle",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:7a2070b558ad0544cb9be64bb0b05b86",
+        "GUID:0ed93d40168999c4394303eba11ae24f",
+        "GUID:892e77350b0ba4548a88453e288e56d0",
+        "GUID:ec5ac9fb98945d549b152f8dfe8b5faf",
+        "GUID:e0cd26848372d4e5c891c569017e11f1"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

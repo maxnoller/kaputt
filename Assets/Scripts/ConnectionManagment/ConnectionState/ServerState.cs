@@ -52,7 +52,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
                     var sessionData = SessionManager<SessionPlayerData>.Instance.GetPlayerData(playerId);
                     if (sessionData.HasValue)
                     {
-                        m_ConnectionEventPublisher.Publish(new ConnectionEventMessage() { ConnectStatus = ConnectStatus.GenericDisconnect, PlayerName = sessionData.Value.PlayerName });
+                        m_ConnectionEventPublisher.Publish(new ConnectionEventMessage() { Status = ConnectStatus.GenericDisconnect, PlayerName = sessionData.Value.PlayerName });
                     }
                     SessionManager<SessionPlayerData>.Instance.DisconnectClient(clientId);
                 }
