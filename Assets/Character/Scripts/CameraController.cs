@@ -30,9 +30,11 @@ public class CameraController : NetworkBehaviour
 	public override void OnNetworkSpawn()
 	{
         enabled = true;
-        if(IsLocalPlayer)
+        if(IsLocalPlayer){
             mainCamera.SetActive(true);
-	}
+            Debug.Log("AM LOCAL PLAYER CAM BICHHH");
+        }
+    }
 
     void OnEnable(){
         if(IsLocalPlayer)

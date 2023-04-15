@@ -25,6 +25,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
         {
             var payload = JsonUtility.ToJson(new ConnectionPayload()
             {
+                playerId = playerId,
                 playerName = playerName,
                 isDebug = Debug.isDebugBuild
             });
@@ -37,8 +38,18 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
         protected string GetPlayerId()
         {
            //return Authentication.Authentication.Instance.PlayerId();
-           return "123";
+           return CreateRandomString();
         }
+
+        private string CreateRandomString(int stringLength = 10) {
+        int _stringLength = stringLength - 1;
+        string randomString = "";
+        string[] characters = new string[] { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        for (int i = 0; i <= _stringLength; i++) {
+            randomString = randomString + characters[UnityEngine.Random.Range(0, characters.Length)];
+        }
+        return randomString;
+    }
     }
 
     /// <summary>
@@ -59,6 +70,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
 
         public override async Task SetupClientConnectionAsync()
         {
+            Debug.LogError(GetPlayerId());
             SetConnectionPayload(GetPlayerId(), m_PlayerName);
             var utp = (UnityTransport)m_ConnectionManager.NetworkManager.NetworkConfig.NetworkTransport;
             utp.SetConnectionData(m_Ipaddress, m_Port);

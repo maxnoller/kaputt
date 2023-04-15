@@ -101,6 +101,9 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
 
             var payload = System.Text.Encoding.UTF8.GetString(connectionData);
             var connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload); // https://docs.unity3d.com/2020.2/Documentation/Manual/JSONSerialization.html
+            Debug.Log(connectionPayload.playerId);
+            Debug.Log(connectionPayload.isDebug);
+            Debug.Log(connectionPayload.playerName);
             var gameReturnStatus = GetConnectStatus(connectionPayload);
 
             if (gameReturnStatus == ConnectStatus.Success)

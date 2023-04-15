@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-public class MainMenu : NetworkBehaviour
+using NOBRAIN.KAPUTT.ConnectionManagement;
+using VContainer;
+
+public class MainMenu : MonoBehaviour
 {
+    [Inject] ConnectionManager m_ConnectionManager;
     public void StartHost(){
-        NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene("Sandbox", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        m_ConnectionManager.StartHostIp("test", "127.0.0.1", 7777);
+    }
+
+    void Update(){
     }
 
     public void StartClient(){
-        NetworkManager.Singleton.StartClient();
+        m_ConnectionManager.StartClientIp("test2", "127.0.0.1", 7777);
     }
 }

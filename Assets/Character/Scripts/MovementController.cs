@@ -53,7 +53,7 @@ public class MovementController : NetworkBehaviour {
     }
     void OnDisable(){
         if(IsLocalPlayer)
-            input.Foot.Enable();
+            input.Foot.Disable();
     }
 
     [ServerRpc]

@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Root" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <ui:VisualElement name="Sidebar" style="flex-grow: 1; width: 42px; opacity: 1; background-color: rgba(7, 7, 7, 0.84); align-items: flex-end; justify-content: flex-end; max-width: 40px;">
+            <ui:Button tabindex="-1" text="X" display-tooltip-when-elided="true" name="QuitButton" style="align-items: auto; align-self: flex-end;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Content" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: space-around; background-image: url(&apos;project://database/Assets/UI/MainMenu/Cole_Thomas_The_Course_of_Empire_Destruction_1836.jpg?fileID=2800000&amp;guid=a2a15ac4e1e80a34fb8791ccd398aba5&amp;type=3#Cole_Thomas_The_Course_of_Empire_Destruction_1836&apos;);">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); display: flex;" />
+            <ui:VisualElement name="SetName" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); max-width: 40%; max-height: 40%; display: none;">
+                <ui:TextField picking-mode="Ignore" label="Username" value="select username" name="UsernameInput" max-length="10" style="flex-direction: column;" />
+                <ui:Button tabindex="-1" text="Submit" display-tooltip-when-elided="true" name="SubmitUsername" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

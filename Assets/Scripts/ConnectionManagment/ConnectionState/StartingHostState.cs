@@ -70,7 +70,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
                 await m_ConnectionMethod.SetupServerConnectionAsync();
 
                 // NGO's StartHost launches everything
-                if (!m_ConnectionManager.NetworkManager.StartServer())
+                if (!m_ConnectionManager.NetworkManager.StartHost())
                 {
                     OnClientDisconnect(m_ConnectionManager.NetworkManager.LocalClientId);
                 }
