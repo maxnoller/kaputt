@@ -23,7 +23,7 @@ abstract class ConnectionState
 
         public virtual void OnServerStarted() { }
 
-        public virtual void StartClient(string playerName, string ipaddress, int port) { }
+        public virtual void StartClient() { }
 
         public virtual void StartServer(string playerName, string ipaddress, int port) { }
 

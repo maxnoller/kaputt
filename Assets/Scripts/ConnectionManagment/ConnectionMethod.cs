@@ -3,29 +3,32 @@ using System.Threading.Tasks;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using NOBRAIN.KAPUTT.Authentication;
+using Steamworks;
+using Steamworks.Data;
+using Netcode.Transports.Facepunch;
 
 namespace NOBRAIN.KAPUTT.ConnectionManagement
 {
     public abstract class ConnectionMethodBase
     {
         protected ConnectionManager m_ConnectionManager;
-        protected readonly string m_PlayerName;
+        protected readonly ulong m_steamid;
 
         public abstract Task SetupServerConnectionAsync();
 
         public abstract Task SetupClientConnectionAsync();
 
-        public ConnectionMethodBase(ConnectionManager connectionManager, string playerName)
+        public ConnectionMethodBase(ConnectionManager connectionManager)
         {
             m_ConnectionManager = connectionManager;
-            m_PlayerName = playerName;
         }
 
-        protected void SetConnectionPayload(string playerId, string playerName)
+        protected void SetConnectionPayload(string playerId, string playerName, SteamId steamId)
         {
             var payload = JsonUtility.ToJson(new ConnectionPayload()
             {
                 playerId = playerId,
+                steamId = steamId,
                 playerName = playerName,
                 isDebug = Debug.isDebugBuild
             });
@@ -52,36 +55,27 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
     }
     }
 
-    /// <summary>
-    /// Simple IP connection setup with UTP
-    /// </summary>
-    class ConnectionMethodIP : ConnectionMethodBase
-    {
-        string m_Ipaddress;
-        ushort m_Port;
+    class ConnectionMethodSteam : ConnectionMethodBase {
 
-        public ConnectionMethodIP(string ip, ushort port, ConnectionManager connectionManager, string playerName)
-            : base(connectionManager, playerName)
-        {
-            m_Ipaddress = ip;
-            m_Port = port;
-            m_ConnectionManager = connectionManager;
+        private FacepunchTransport transport = null;
+        public Lobby? currentLobby {get; private set;} = null;
+        
+        public ConnectionMethodSteam(ConnectionManager connectionManager) : base (connectionManager){
+            transport = connectionManager.NetworkManager.GetComponent<FacepunchTransport>();
         }
 
-        public override async Task SetupClientConnectionAsync()
-        {
-            Debug.LogError(GetPlayerId());
-            SetConnectionPayload(GetPlayerId(), m_PlayerName);
-            var utp = (UnityTransport)m_ConnectionManager.NetworkManager.NetworkConfig.NetworkTransport;
-            utp.SetConnectionData(m_Ipaddress, m_Port);
+        public void setLobby(Lobby _lobby){
+            currentLobby = _lobby;
         }
 
-        public override async Task SetupServerConnectionAsync()
-        {
-            SetConnectionPayload(GetPlayerId(), m_PlayerName); // Need to set connection payload for host as well, as host is a client too
-            var utp = (UnityTransport)m_ConnectionManager.NetworkManager.NetworkConfig.NetworkTransport;
-            utp.SetConnectionData(m_Ipaddress, m_Port);
+        public override async Task SetupClientConnectionAsync(){
+            transport.targetSteamId = currentLobby.Value.Owner.Id;
         }
+
+        public override async Task SetupServerConnectionAsync(){
+            currentLobby = await SteamMatchmaking.CreateLobbyAsync(10);
+        }
+
     }
 
 }

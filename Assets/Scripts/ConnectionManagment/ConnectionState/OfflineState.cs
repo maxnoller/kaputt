@@ -3,6 +3,8 @@ using UnityEngine;
 using NOBRAIN.KAPUTT.Utils;
 using UnityEngine.SceneManagement;
 using VContainer;
+using Steamworks;
+using Steamworks.Data;
 
 namespace NOBRAIN.KAPUTT.ConnectionManagement
 {
@@ -18,19 +20,23 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
             {
                 SceneLoaderWrapper.Instance.LoadScene(k_MainMenuSceneName, useNetworkSceneManager: false);
             }
+            SteamFriends.OnGameLobbyJoinRequested += OnGameLobbyJoinRequested;
         }
 
-        public override void Exit() { }
+        public override void Exit() {
+            SteamFriends.OnGameLobbyJoinRequested -= OnGameLobbyJoinRequested;
+         }
 
-        public override void StartClient(string playerName, string ipaddress, int port)
-        {
-            var connectionMethod = new ConnectionMethodIP(ipaddress, (ushort)port, m_ConnectionManager, playerName);
+        private async void OnGameLobbyJoinRequested(Lobby _lobby, SteamId steamId){
+            var connectionMethod = new ConnectionMethodSteam(m_ConnectionManager);
+            connectionMethod.setLobby(_lobby);
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_ClientConnecting.Configure(connectionMethod));
+
         }
 
         public override void StartServer(string playerName, string ipaddress, int port)
         {
-            var connectionMethod = new ConnectionMethodIP(ipaddress, (ushort)port, m_ConnectionManager, playerName);
+            var connectionMethod = new ConnectionMethodSteam(m_ConnectionManager);
             m_ConnectionManager.ChangeState(m_ConnectionManager.m_StartingHost.Configure(connectionMethod));
         }
     }
