@@ -2,14 +2,12 @@
 using NOBRAIN.KAPUTT.Infrastructure;
 using NOBRAIN.KAPUTT.Utils;
 using UnityEngine;
-using Steamworks;
 
 namespace NOBRAIN.KAPUTT.ConnectionManagement
 {
     public struct SessionPlayerData : ISessionPlayerData
     {
-        public SteamId SteamID;
-        public string DisplayName;
+        public string PlayerName;
         public int PlayerNumber;
         public Vector3 PlayerPosition;
         public Quaternion PlayerRotation;
@@ -17,11 +15,10 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
         public int CurrentHitPoints;
         public bool HasCharacterSpawned;
 
-        public SessionPlayerData(ulong clientID, SteamId steamId, string displayName, int currentHitPoints = 0, bool isConnected = false, bool hasCharacterSpawned = false)
+        public SessionPlayerData(ulong clientID, string name, int currentHitPoints = 0, bool isConnected = false, bool hasCharacterSpawned = false)
         {
             ClientID = clientID;
-            SteamID = steamId;
-            DisplayName = displayName;
+            PlayerName = name;
             PlayerNumber = -1;
             PlayerPosition = Vector3.zero;
             PlayerRotation = Quaternion.identity;

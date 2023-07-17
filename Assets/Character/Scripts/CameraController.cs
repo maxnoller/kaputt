@@ -32,6 +32,7 @@ public class CameraController : NetworkBehaviour
         enabled = true;
         if(IsLocalPlayer){
             mainCamera.SetActive(true);
+            Debug.Log("AM LOCAL PLAYER CAM BICHHH");
         }
     }
 

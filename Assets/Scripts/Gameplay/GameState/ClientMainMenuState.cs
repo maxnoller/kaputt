@@ -5,7 +5,6 @@ using UnityEngine;
 namespace NOBRAIN.KAPUTT.Gameplay.GameState{
 public class ClientMainMenuState : GameStateBehaviour
 {
-    public override GameState ActiveState { get { return GameState.MainMenu; } }
     // Start is called before the first frame update
     void Start()
     {

@@ -3,7 +3,6 @@ using NOBRAIN.KAPUTT.Infrastructure;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
-using Steamworks;
 using NOBRAIN.KAPUTT.Utils;
 
 namespace NOBRAIN.KAPUTT.ConnectionManagement
@@ -55,13 +54,12 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
                 var payload = System.Text.Encoding.UTF8.GetString(connectionData);
                 var connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload); // https://docs.unity3d.com/2020.2/Documentation/Manual/JSONSerialization.html
 
-                SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, SteamClient.SteamId.ToString(),
-                   new SessionPlayerData(clientId, SteamClient.SteamId, Steamworks.SteamClient.Name, 0, true));
+                SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
+                   new SessionPlayerData(clientId, connectionPayload.playerName, 0, true));
                 
                 // connection approval will create a player object for you
                 response.Approved = true;
                 response.CreatePlayerObject = true;
-                Debug.Log(SessionManager<SessionPlayerData>.Instance.GetPlayerData(clientId).Value.DisplayName);
             }
         }
 

@@ -4,9 +4,6 @@ using UnityEngine;
 using Unity.Netcode;
 using System;
 using NOBRAIN.KAPUTT.Utils;
-using Netcode.Transports.Facepunch;
-using Steamworks.Data;
-using Steamworks;
 using VContainer;
 
 namespace NOBRAIN.KAPUTT.ConnectionManagement{
@@ -42,7 +39,6 @@ public struct ConnectionEventMessage : INetworkSerializeByMemcpy{
 [Serializable]
 public class ConnectionPayload{
     public string playerId;
-    public SteamId steamId;
     public string playerName;
     public bool isDebug;
 }
@@ -89,19 +85,16 @@ public class ConnectionManager : MonoBehaviour
 
             NetworkManager.OnClientConnectedCallback += OnClientConnectedCallback;
             NetworkManager.OnClientDisconnectCallback += OnClientDisconnectCallback;
+            NetworkManager.OnServerStarted += OnServerStarted;
             NetworkManager.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.OnTransportFailure += OnTransportFailure;
-
-            SteamMatchmaking.OnLobbyCreated += OnServerStarted;
-            SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
-            SteamMatchmaking.OnLobbyGameCreated += OnLobbyGameCreated;
         }
 
         void OnDestroy()
         {
             NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
             NetworkManager.OnClientDisconnectCallback -= OnClientDisconnectCallback;
-            SteamMatchmaking.OnLobbyCreated -= OnServerStarted;
+            NetworkManager.OnServerStarted -= OnServerStarted;
             NetworkManager.ConnectionApprovalCallback -= ApprovalCheck;
             NetworkManager.OnTransportFailure -= OnTransportFailure;
         }
@@ -118,19 +111,9 @@ public class ConnectionManager : MonoBehaviour
             m_CurrentState.Enter();
         }
 
-        void OnLobbyEntered(Lobby _lobby){
-            m_CurrentState.StartClient();
-        }
-
         void OnClientDisconnectCallback(ulong clientId)
         {
             m_CurrentState.OnClientDisconnect(clientId);
-        }
-
-        private void OnLobbyGameCreated(Lobby _lobby, uint _ip, ushort _port, SteamId _steamId)
-        {
-            Debug.Log($"Lobby was created");
-
         }
 
         void OnClientConnectedCallback(ulong clientId)
@@ -138,7 +121,7 @@ public class ConnectionManager : MonoBehaviour
             m_CurrentState.OnClientConnected(clientId);
         }
 
-        void OnServerStarted(Result _result, Lobby lobby)
+        void OnServerStarted()
         {
             m_CurrentState.OnServerStarted();
         }
@@ -156,7 +139,7 @@ public class ConnectionManager : MonoBehaviour
 
         public void StartClientIp(string playerName, string ipaddress, int port)
         {
-            Debug.Log("start client");
+            m_CurrentState.StartClient(playerName, ipaddress, port);
         }
 
         public void StartHostIp(string playerName, string ipaddress, int port)

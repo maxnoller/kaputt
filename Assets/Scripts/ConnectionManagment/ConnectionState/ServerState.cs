@@ -52,7 +52,7 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
                     var sessionData = SessionManager<SessionPlayerData>.Instance.GetPlayerData(playerId);
                     if (sessionData.HasValue)
                     {
-                        m_ConnectionEventPublisher.Publish(new ConnectionEventMessage() { Status = ConnectStatus.GenericDisconnect, PlayerName = sessionData.Value.DisplayName});
+                        m_ConnectionEventPublisher.Publish(new ConnectionEventMessage() { Status = ConnectStatus.GenericDisconnect, PlayerName = sessionData.Value.PlayerName });
                     }
                     SessionManager<SessionPlayerData>.Instance.DisconnectClient(clientId);
                 }
@@ -109,14 +109,13 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
             if (gameReturnStatus == ConnectStatus.Success)
             {
                 SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
-                    new SessionPlayerData(clientId, Steamworks.SteamClient.SteamId, Steamworks.SteamClient.Name, 0, true));
+                    new SessionPlayerData(clientId, connectionPayload.playerName, 0, true));
 
                 // connection approval will create a player object for you
                 response.Approved = true;
                 response.CreatePlayerObject = true;
                 response.Position = Vector3.zero;
                 response.Rotation = Quaternion.identity;
-                Debug.Log(SessionManager<SessionPlayerData>.Instance.GetPlayerData(clientId).Value.DisplayName);
                 return;
             }
 
