@@ -70,7 +70,6 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
 
         public override async Task SetupClientConnectionAsync()
         {
-            Debug.LogError(GetPlayerId());
             SetConnectionPayload(GetPlayerId(), m_PlayerName);
             var utp = (UnityTransport)m_ConnectionManager.NetworkManager.NetworkConfig.NetworkTransport;
             utp.SetConnectionData(m_Ipaddress, m_Port);

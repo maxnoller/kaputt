@@ -14,9 +14,10 @@ public enum ConnectStatus{
     LoggedInAgain,
     GenericDisconnect,
     IncompatibleBuildType,
-    HostEndedSession,
-    StartHostFailed,
-    StartClientFailed
+    ServerEndedSession,
+    StartServerFailed,
+    StartClientFailed,
+    StartHostFailed
 }
 
 public struct ReconnectMessage
@@ -65,8 +66,10 @@ public class ConnectionManager : MonoBehaviour
         internal readonly OfflineState m_Offline = new OfflineState();
         internal readonly ClientConnectingState m_ClientConnecting = new ClientConnectingState();
         internal readonly ClientConnectedState m_ClientConnected = new ClientConnectedState();
+        internal readonly StartingServerState m_StartingServer = new StartingServerState();
+        internal readonly ServerState m_Server = new ServerState();
         internal readonly StartingHostState m_StartingHost = new StartingHostState();
-        internal readonly HostingState m_Hosting = new HostingState();
+        internal readonly HostState m_Host = new HostState();
 
         void Awake()
         {
@@ -75,7 +78,7 @@ public class ConnectionManager : MonoBehaviour
 
         void Start()
         {
-            List<ConnectionState> states = new() { m_Offline, m_ClientConnecting, m_ClientConnected, m_StartingHost, m_Hosting };
+            List<ConnectionState> states = new() { m_Offline, m_ClientConnecting, m_ClientConnected, m_StartingServer, m_Server, m_Host, m_StartingHost };
             foreach (var connectionState in states)
             {
                 m_Resolver.Inject(connectionState);
@@ -142,9 +145,14 @@ public class ConnectionManager : MonoBehaviour
             m_CurrentState.StartClient(playerName, ipaddress, port);
         }
 
-        public void StartHostIp(string playerName, string ipaddress, int port)
+        public void StartServer(string ipaddress, int port)
         {
-            m_CurrentState.StartServer(playerName, ipaddress, port);
+            m_CurrentState.StartServer(ipaddress, port);
+        }
+
+        public void StartHost(string ipaddress, int port)
+        {
+            m_CurrentState.StartHost(ipaddress, port);
         }
 
         public void RequestShutdown()

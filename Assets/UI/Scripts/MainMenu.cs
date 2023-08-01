@@ -9,7 +9,24 @@ public class MainMenu : MonoBehaviour
 {
     [Inject] ConnectionManager m_ConnectionManager;
     public void StartHost(){
-        m_ConnectionManager.StartHostIp("test", "127.0.0.1", 7777);
+        m_ConnectionManager.StartHost("127.0.0.1", 7777);
+    }
+
+    void Start(){
+        if(!isThisServer())
+            return;
+        Debug.Log("Starting Dedicated Server");
+        m_ConnectionManager.StartServer("0.0.0.0", 7777);
+        return;
+    }
+
+    bool isThisServer(){
+        foreach(string arg in System.Environment.GetCommandLineArgs()){
+            if(arg == "-dedicatedServer")
+                return true;
+        }
+        Debug.Log("Not dedicated server");
+        return false;
     }
 
     void Update(){

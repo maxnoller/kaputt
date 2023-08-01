@@ -3,18 +3,15 @@ using NOBRAIN.KAPUTT.Infrastructure;
 using Unity.Netcode;
 using UnityEngine;
 using VContainer;
+using NOBRAIN.KAPUTT.Utils;
 
 namespace NOBRAIN.KAPUTT.ConnectionManagement
 {
-    /// <summary>
-    /// Connection state corresponding to a host starting up. Starts the host when entering the state. If successful,
-    /// transitions to the Hosting state, if not, transitions back to the Offline state.
-    /// </summary>
-    class StartingHostState : OnlineState
+    class StartingServerState : OnlineState
     {
         ConnectionMethodBase m_ConnectionMethod;
 
-        public StartingHostState Configure(ConnectionMethodBase baseConnectionMethod)
+        public StartingServerState Configure(ConnectionMethodBase baseConnectionMethod)
         {
             m_ConnectionMethod = baseConnectionMethod;
             return this;
@@ -22,15 +19,29 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
 
         public override void Enter()
         {
-            StartHost();
+            StartServer();
         }
 
         public override void Exit() { }
 
+        public override void OnClientDisconnect(ulong clientId)
+        {
+            if (clientId == m_ConnectionManager.NetworkManager.LocalClientId)
+            {
+                StartServerFailed();
+            }
+        }
+
+        void StartServerFailed()
+        {
+            m_ConnectStatusPublisher.Publish(ConnectStatus.StartServerFailed);
+            m_ConnectionManager.ChangeState(m_ConnectionManager.m_Offline);
+        }
+
         public override void OnServerStarted()
         {
             m_ConnectStatusPublisher.Publish(ConnectStatus.Success);
-            m_ConnectionManager.ChangeState(m_ConnectionManager.m_Host);
+            m_ConnectionManager.ChangeState(m_ConnectionManager.m_Server);
         }
 
         public override void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
@@ -43,43 +54,32 @@ namespace NOBRAIN.KAPUTT.ConnectionManagement
                 var payload = System.Text.Encoding.UTF8.GetString(connectionData);
                 var connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload); // https://docs.unity3d.com/2020.2/Documentation/Manual/JSONSerialization.html
 
-                //SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
-                //    new SessionPlayerData(clientId, connectionPayload.playerName, new NetworkGuid(), 0, true));
-
+                SessionManager<SessionPlayerData>.Instance.SetupConnectingPlayerSessionData(clientId, connectionPayload.playerId,
+                   new SessionPlayerData(clientId, connectionPayload.playerName, 0, true));
+                
                 // connection approval will create a player object for you
                 response.Approved = true;
                 response.CreatePlayerObject = true;
             }
         }
 
-        public override void OnServerStopped()
-        {
-            StartHostFailed();
-        }
-
-        async void StartHost()
+        async void StartServer()
         {
             try
             {
                 await m_ConnectionMethod.SetupServerConnectionAsync();
 
                 // NGO's StartHost launches everything
-                if (!m_ConnectionManager.NetworkManager.StartHost())
+                if (!m_ConnectionManager.NetworkManager.StartServer())
                 {
-                    StartHostFailed();
+                    OnClientDisconnect(m_ConnectionManager.NetworkManager.LocalClientId);
                 }
             }
             catch (Exception)
             {
-                StartHostFailed();
+                StartServerFailed();
                 throw;
             }
-        }
-
-        void StartHostFailed()
-        {
-            m_ConnectStatusPublisher.Publish(ConnectStatus.StartHostFailed);
-            m_ConnectionManager.ChangeState(m_ConnectionManager.m_Offline);
         }
     }
 }

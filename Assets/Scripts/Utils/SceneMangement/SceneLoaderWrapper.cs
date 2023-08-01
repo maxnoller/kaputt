@@ -134,7 +134,7 @@ namespace NOBRAIN.KAPUTT.Utils
                 {
                     // todo: this is a workaround that could be removed once MTT-3363 is done
                     // Only executes on client that is not the host
-                    if (NetworkManager.IsClient && !NetworkManager.IsHost)
+                    if (NetworkManager.IsClient && !NetworkManager.IsServer)
                     {
                         // unload all currently loaded additive scenes so that if we connect to a server with the same
                         // main scene we properly load and synchronize all appropriate scenes without loading a scene

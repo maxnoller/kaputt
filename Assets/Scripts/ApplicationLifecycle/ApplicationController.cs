@@ -66,6 +66,7 @@ namespace NOBRAIN.KAPUTT.ApplicationLifecycle
             Application.wantsToQuit += OnWantToQuit;
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = 120;
+
             SceneManager.LoadScene("MainMenu");
         }
 

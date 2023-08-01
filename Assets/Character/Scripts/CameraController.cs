@@ -24,7 +24,7 @@ public class CameraController : NetworkBehaviour
     }
 
     void Update(){
-        ChangeRotation(currentRotation);
+        handleRotationServerRpc(currentRotation);
     }
 
 	public override void OnNetworkSpawn()
@@ -34,6 +34,11 @@ public class CameraController : NetworkBehaviour
             mainCamera.SetActive(true);
             Debug.Log("AM LOCAL PLAYER CAM BICHHH");
         }
+    }
+
+    [ServerRpc]
+    public void handleRotationServerRpc(Vector2 rotation){
+        ChangeRotation(rotation);
     }
 
     void OnEnable(){
@@ -47,7 +52,7 @@ public class CameraController : NetworkBehaviour
     }
 
     void ChangeRotation(Vector2 mouseInput){
-        if(currentRotation == null) { return; }
+        if(!IsServer) return;
         currentXRotation -= mouseInput.y*mouseSensitivity;
         currentYRotation += mouseInput.x * mouseSensitivity;
         currentXRotation = Mathf.Clamp(currentXRotation, -maxRotation, maxRotation);

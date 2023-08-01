@@ -22,10 +22,13 @@ abstract class ConnectionState
         public virtual void OnClientDisconnect(ulong clientId) { }
 
         public virtual void OnServerStarted() { }
+        public virtual void OnHostStarted() { }
+        public virtual void OnServerStopped() { }
 
         public virtual void StartClient(string playerName, string ipaddress, int port) { }
 
-        public virtual void StartServer(string playerName, string ipaddress, int port) { }
+        public virtual void StartServer(string ipaddress, int port) { }
+        public virtual void StartHost(string ipaddress, int port) { }
 
         public virtual void OnUserRequestedShutdown() { }
 
